@@ -1,0 +1,24 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #DADADA;
+    margin: 0;
+}
+
+.column {
+    max-width: 450px;
+}
+
+body > .grid {
+    height: 100%;
+}
+
+.remember {
+    text-align:left;
+}
+
+.error > .header {
+    text-align:left;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuickVue</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/">
+    <link rel="stylesheet" href="https://unpkg.com/semantic-ui@2.2.11/dist/semantic.min.css" />
+    <link rel="stylesheet" href="static/main.css" />
+    {% block head %}
+    {% endblock %}
+    {% if bootstrap %}
+    <script type="text/javascript">window.bootstrap = {{ bootstrap | tojson | safe }};</script>
+    {% endif %}
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <script src="https://unpkg.com/jquery@3.2.1"></script>
+    <script src="https://unpkg.com/lodash@4.17.4/lodash.min.js"></script>
+    <script src="https://unpkg.com/semantic-ui@2.2.11/dist/semantic.min.js"></script>
+    <script src="https://unpkg.com/vue@2.3.4/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/vue-resource@1.3.4/dist/vue-resource.min.js"></script>
+    <script type="text/javascript" src="static/main.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

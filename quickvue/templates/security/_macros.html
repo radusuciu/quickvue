@@ -1,0 +1,39 @@
+{% macro render_field_with_errors(field, icon) %}
+    <div class="{{ 'error' if field.errors }} field">
+        <div class="ui left icon input">
+            {% if icon %}
+            <i class="{{ icon }} icon"></i>
+            {% endif %}
+            {{ field(placeholder=field.label.text, **kwargs)|safe }}
+
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro render_checkbox_field_with_errors(field, class_) %}
+<div class="{{ 'error' if field.errors }} field {{class_}}">
+    <div class="ui checkbox">
+        {{ field(**kwargs)|safe }}
+        {{ field.label }}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_errors(form) %}
+{% if form.errors %}
+<div class="ui error message">
+    <div class="header left aligned">There were some errors with your submission</div>
+    <ul class="list">
+    {% for field in form.errors %}
+    {% for error in form.errors[field] %}
+            <li>{{error}}</li>
+    {% endfor %}
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endmacro %}
+
+{% macro render_field(field) %}
+    {{ field(**kwargs)|safe }}
+{% endmacro %}

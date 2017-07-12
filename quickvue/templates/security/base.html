@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+
+{% block head %}
+<link rel="stylesheet" href="static/security.css" />
+{% endblock %}
+
+{% block content %}
+{% include "security/_menu.html" %}
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        {% include "security/_messages.html" %}
+        {% block security_content %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
