@@ -17,6 +17,13 @@ fi
 
 source venv/bin/activate
 
+# easy way to update requirements to latest version
+# just delete requirements.txt
+if [ ! -f requirements.txt ]; then
+    pip install -r requirements-base.txt
+    pip freeze > requirements.txt
+fi
+
 pip check -q || pip install -r requirements.txt
 
 # run the dev server
