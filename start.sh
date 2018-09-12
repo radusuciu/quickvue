@@ -17,7 +17,7 @@ fi
 
 source venv/bin/activate
 
-pip install -r requirements.txt
+pip check -q || pip install -r requirements.txt
 
 # run the dev server
 flask run -h 0.0.0.0
