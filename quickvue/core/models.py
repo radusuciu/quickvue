@@ -1,40 +1,38 @@
 """Le models."""
 from flask_security import UserMixin, RoleMixin
 from marshmallow import Schema, fields, post_dump
-from quickvue import db
-
-Column = db.Column
-Text = db.Text
-Integer = db.Integer
-relationship = db.relationship
-
-roles_users = db.Table(
-    'roles_users',
-    Column('user_id', db.Integer(), db.ForeignKey('user.id')),
-    Column('role_id', db.Integer(), db.ForeignKey('role.id'))
+from quickvue import db, db_wrapper
+from peewee import (
+    BooleanField,
+    CharField,
+    DateTimeField,
+    ForeignKeyField,
+    IntegerField,
+    TextField
 )
 
+class BaseModel(db_wrapper.Model):
+    class Meta:
+        database = db
 
-class Role(db.Model, RoleMixin):
+class Role(BaseModel, RoleMixin):
     """Simple role or database user."""
+    name = CharField(unique=True)
+    description = TextField(null=True)
 
-    id = Column(Integer, primary_key=True)
-    name = Column(Text, unique=True)
-    description = Column(Text)
+class User(BaseModel, UserMixin):
+    email = TextField(unique=True)
+    password = TextField()
+    active = BooleanField(default=True)
 
-
-class User(db.Model, UserMixin):
-    """User of proteomics database."""
-
-    id = Column(Integer, primary_key=True)
-    email = Column(Text, unique=True)
-    password = Column(Text)
-    active = Column(Text)
-    roles = relationship(
-        'Role',
-        secondary=roles_users,
-        backref=db.backref('users', lazy='dynamic')
-    )
+class UserRoles(BaseModel):
+    # Because peewee does not come with built-in many-to-many
+    # relationships, we need this intermediary class to link
+    # user to roles.
+    user = ForeignKeyField(User, related_name='roles')
+    role = ForeignKeyField(Role, related_name='users')
+    name = property(lambda self: self.role.name)
+    description = property(lambda self: self.role.description)
 
 class UserSchema(Schema):
     """Marshmallow schema for User."""

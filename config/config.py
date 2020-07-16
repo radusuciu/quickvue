@@ -26,9 +26,8 @@ if _override_path.is_file():
 class _Config(object):
     """Holds flask configuration to be consumed by Flask's from_object method."""
 
-    # SQLAlchemy
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////{}/quickvue.db'.format(str(PROJECT_HOME_PATH))
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Peewee
+    DATABASE = 'sqlite:////{}/quickvue.db'.format(str(PROJECT_HOME_PATH))
 
     # Flask
     DEBUG = False
