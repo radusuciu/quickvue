@@ -1,7 +1,7 @@
 email-validator
 flask
 flask-migrate
-flask-security
+flask-security-too
 flask-sqlalchemy
 marshmallow
 pyyaml
